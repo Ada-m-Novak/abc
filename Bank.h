@@ -33,7 +33,7 @@ public:
       int c,
       Client *owner,
       Client *partner,
-      double ir
+      double ir//av
   );
 
   void AddInterest();
