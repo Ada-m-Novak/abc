@@ -14,7 +14,6 @@ private:
 
 public:
   Bank();
-  Bank(int c, int a);
   ~Bank();
 
   Bank(const Bank &) = delete;
@@ -23,18 +22,18 @@ public:
   Client *GetClient(int c) const;
   Account *GetAccount(int n) const;
 
-  Client *CreateClient(int c, const std::string &n);
+  Client *CreateClient(const std::string &name);
 
-  Account *CreateAccount(int n, int c, Client *owner);
-  Account *CreateAccount(int n, int c, Client *owner, double ir);
-  Account *CreateAccount(int n, int c, Client *owner, Client *partner);
-  Account *CreateAccount(
-      int n,
-      int c,
-      Client *owner,
-      Client *partner,
-      double ir//av
-  );
+  Account *CreateAccount(int c, Client *owner);
+  Account *CreateAccount(int c, Client *owner, double ir);
+  Account *CreateAccount(int c, Client *owner, Client *partner);
+  Account *CreateAccount(int c, Client *owner, Client *partner, double ir);
+
+  bool RemoveAccount(int number);
+  bool RemoveClient(int code);
+
+  int GetClientsCount() const;
+  int GetAccountsCount() const;
 
   void AddInterest();
 

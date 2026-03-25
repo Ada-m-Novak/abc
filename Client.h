@@ -8,11 +8,17 @@ private:
   int code;
   std::string name;
 
+  static int nextCode;
+  static int totalClients;
+
 public:
-  Client(int c, const std::string &n);
+  Client(const std::string &n);
+  ~Client();
 
   int GetCode() const;
   std::string GetName() const;
+
+  static int GetTotalClients();
 };
 
 #endif

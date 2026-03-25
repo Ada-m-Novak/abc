@@ -1,20 +1,45 @@
 #include "Account.h"
 
-Account::Account(int n, int c, Client *o)
-    : number(n),
+int Account::nextNumber = 2000;
+int Account::totalAccounts = 0;
+
+Account::Account(int c, Client *o)
+    : number(nextNumber++),
       balance(c),
       interestRate(0.01),
       owner(o),
-      partner(nullptr) {}
+      partner(nullptr) {
+  totalAccounts++;
+}
 
-Account::Account(int n, int c, Client *o, double ir)
-    : number(n), balance(c), interestRate(ir), owner(o), partner(nullptr) {}
+Account::Account(int c, Client *o, double ir)
+    : number(nextNumber++),
+      balance(c),
+      interestRate(ir),
+      owner(o),
+      partner(nullptr) {
+  totalAccounts++;
+}
 
-Account::Account(int n, int c, Client *o, Client *p)
-    : number(n), balance(c), interestRate(0.01), owner(o), partner(p) {}
+Account::Account(int c, Client *o, Client *p)
+    : number(nextNumber++),
+      balance(c),
+      interestRate(0.01),
+      owner(o),
+      partner(p) {
+  totalAccounts++;
+}
 
-Account::Account(int n, int c, Client *o, Client *p, double ir)
-    : number(n), balance(c), interestRate(ir), owner(o), partner(p) {}
+Account::Account(int c, Client *o, Client *p, double ir)
+    : number(nextNumber++),
+      balance(c),
+      interestRate(ir),
+      owner(o),
+      partner(p) {
+  totalAccounts++;
+}
+
+Account::~Account() { totalAccounts--; }
 
 int Account::GetNumber() const { return number; }
 
@@ -44,3 +69,7 @@ bool Account::Withdraw(double a) {
 }
 
 void Account::AddInterest() { balance += balance * interestRate; }
+
+void Account::RemovePartner() { partner = nullptr; }
+
+int Account::GetTotalAccounts() { return totalAccounts; }

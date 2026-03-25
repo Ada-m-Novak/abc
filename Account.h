@@ -11,11 +11,15 @@ private:
   Client *owner;
   Client *partner;
 
+  static int nextNumber;
+  static int totalAccounts;
+
 public:
-  Account(int n, int c, Client *o);
-  Account(int n, int c, Client *o, double ir);
-  Account(int n, int c, Client *o, Client *p);
-  Account(int n, int c, Client *o, Client *p, double ir);
+  Account(int c, Client *o);
+  Account(int c, Client *o, double ir);
+  Account(int c, Client *o, Client *p);
+  Account(int c, Client *o, Client *p, double ir);
+  ~Account();
 
   int GetNumber() const;
   double GetBalance() const;
@@ -27,6 +31,10 @@ public:
   void Deposit(double a);
   bool Withdraw(double a);
   void AddInterest();
+
+  void RemovePartner();
+
+  static int GetTotalAccounts();
 };
 
 #endif
