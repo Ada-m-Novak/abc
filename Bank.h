@@ -3,6 +3,7 @@
 
 #include "Account.h"
 #include "Client.h"
+#include "PartnerAccount.h"
 
 class Bank {
 private:

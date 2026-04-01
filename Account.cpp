@@ -4,38 +4,12 @@ int Account::nextNumber = 2000;
 int Account::totalAccounts = 0;
 
 Account::Account(int c, Client *o)
-    : number(nextNumber++),
-      balance(c),
-      interestRate(0.01),
-      owner(o),
-      partner(nullptr) {
+    : number(nextNumber++), balance(c), interestRate(0.01), owner(o) {
   totalAccounts++;
 }
 
 Account::Account(int c, Client *o, double ir)
-    : number(nextNumber++),
-      balance(c),
-      interestRate(ir),
-      owner(o),
-      partner(nullptr) {
-  totalAccounts++;
-}
-
-Account::Account(int c, Client *o, Client *p)
-    : number(nextNumber++),
-      balance(c),
-      interestRate(0.01),
-      owner(o),
-      partner(p) {
-  totalAccounts++;
-}
-
-Account::Account(int c, Client *o, Client *p, double ir)
-    : number(nextNumber++),
-      balance(c),
-      interestRate(ir),
-      owner(o),
-      partner(p) {
+    : number(nextNumber++), balance(c), interestRate(ir), owner(o) {
   totalAccounts++;
 }
 
@@ -49,7 +23,7 @@ double Account::GetInterestRate() const { return interestRate; }
 
 Client *Account::GetOwner() const { return owner; }
 
-Client *Account::GetPartner() const { return partner; }
+Client *Account::GetClient() const { return nullptr; }
 
 bool Account::CanWithdraw(double a) const { return a >= 0 && balance >= a; }
 
@@ -69,7 +43,5 @@ bool Account::Withdraw(double a) {
 }
 
 void Account::AddInterest() { balance += balance * interestRate; }
-
-void Account::RemovePartner() { partner = nullptr; }
 
 int Account::GetTotalAccounts() { return totalAccounts; }

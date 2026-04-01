@@ -92,7 +92,7 @@ Account *Bank::CreateAccount(int c, Client *owner, double ir) {
 }
 
 Account *Bank::CreateAccount(int c, Client *owner, Client *partner) {
-  if (owner == nullptr) {
+  if (owner == nullptr || partner == nullptr) {
     return nullptr;
   }
 
@@ -102,7 +102,7 @@ Account *Bank::CreateAccount(int c, Client *owner, Client *partner) {
     newAccounts[i] = accounts[i];
   }
 
-  newAccounts[accountsCount] = new Account(c, owner, partner);
+  newAccounts[accountsCount] = new PartnerAccount(c, owner, partner);
 
   delete[] accounts;
   accounts = newAccounts;
@@ -112,7 +112,7 @@ Account *Bank::CreateAccount(int c, Client *owner, Client *partner) {
 }
 
 Account *Bank::CreateAccount(int c, Client *owner, Client *partner, double ir) {
-  if (owner == nullptr) {
+  if (owner == nullptr || partner == nullptr) {
     return nullptr;
   }
 
@@ -122,7 +122,7 @@ Account *Bank::CreateAccount(int c, Client *owner, Client *partner, double ir) {
     newAccounts[i] = accounts[i];
   }
 
-  newAccounts[accountsCount] = new Account(c, owner, partner, ir);
+  newAccounts[accountsCount] = new PartnerAccount(c, owner, partner, ir);
 
   delete[] accounts;
   accounts = newAccounts;
@@ -183,13 +183,10 @@ bool Bank::RemoveClient(int code) {
   }
 
   for (int i = 0; i < accountsCount;) {
-    if (accounts[i]->GetOwner() == client) {
+    if (accounts[i]->GetOwner() == client || accounts[i]->GetClient() == client) {
       int number = accounts[i]->GetNumber();
       RemoveAccount(number);
     } else {
-      if (accounts[i]->GetPartner() == client) {
-        accounts[i]->RemovePartner();
-      }
       i++;
     }
   }
@@ -242,8 +239,8 @@ void Bank::PrintAccounts() const {
               << ", urok: " << accounts[i]->GetInterestRate()
               << ", vlastnik: " << accounts[i]->GetOwner()->GetName();
 
-    if (accounts[i]->GetPartner() != nullptr) {
-      std::cout << ", partner: " << accounts[i]->GetPartner()->GetName();
+    if (accounts[i]->GetClient() != nullptr) {
+      std::cout << ", partner: " << accounts[i]->GetClient()->GetName();
     }
 
     std::cout << "\n";
