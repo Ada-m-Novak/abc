@@ -1,36 +1,32 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include "AbstractAccount.h"
 #include "Client.h"
 
-class Account {
+class Account : public AbstractAccount
+{
 protected:
-  int number;
-  double balance;
-  double interestRate;
-  Client *owner;
-
-  static int nextNumber;
-  static int totalAccounts;
+    int number;
+    Client *owner;
+    double balance;
+    double interestRate;
+    static int totalAccounts;
 
 public:
-  Account(int c, Client *o);
-  Account(int c, Client *o, double ir);
-  virtual ~Account();
+    Account(int c, Client *o);
+    Account(int c, Client *o, double ir);
+    virtual ~Account();
 
-  int GetNumber() const;
-  double GetBalance() const;
-  double GetInterestRate() const;
-  Client *GetOwner() const;
+    int GetNumber() const;
+    Client *GetOwner() const;
+    double GetBalance() const;
+    double GetInterestRate() const;
 
-  virtual Client *GetClient() const;
-
-  bool CanWithdraw(double a) const;
-  void Deposit(double a);
-  bool Withdraw(double a);
-  void AddInterest();
-
-  static int GetTotalAccounts();
+    void Deposit(double a);
+    bool Withdraw(double a);
+    virtual bool CanWithdraw(double a) const override;
+    virtual Client *GetClient() const;
 };
 
 #endif
