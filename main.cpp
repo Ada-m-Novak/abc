@@ -1,98 +1,23 @@
-#include <string>
 #include <iostream>
-struct Node
+#include "Client.h"
+#include "Account.h"
+#include "CreditAccount.h"
+#include "AbstractAccount.h"
+
+using namespace std;
+
+int main()
 {
-    int value;
-    Node *left;
-    Node *right;
+    Client c1("Alfons habrman");
 
-    Node(int key) : value(key), left(nullptr), right(nullptr) {}
-};
+    AbstractAccount *a1 = new Account(1001, &c1);
+    AbstractAccount *a2 = new CreditAccount(1002, &c1, 500);
 
-class BST
-{
-private:
-    Node *root;
-    void destroy(Node *node)
-    {
-        if (node == nullptr)
-        {
-            return;
-        }
-        destroy(node->left);
-        destroy(node->right);
-    }
-    Node *insert(Node *node, int key)
-    {
-        if (node == nullptr)
-        {
-            return new Node(key);
-        }
-        if (key < node->value)
-        {
-            node->left = insert(node->left, key);
-        }
-        else if (key > node->value)
-        {
-            node->right = insert(node->right, key);
-        }
-    }
-    bool find(Node *node, int key)
-    {
-        if (node == nullptr)
-        {
-            return 0;
-        }
-        if (key < node->value)
-        {
-            return find(node->left, key);
-        }
-        else if (key > node->value)
-        {
-            return find(node->right, key);
-        }
-        else if (key == node->value)
-        {
-            return true;
-        }
-    }
-    void inorderpass(Node*node){
-        if (node==nullptr)
-        {
-            return;
-        }
-        inorderpass(node->left);
-        std::cout<<node->value<<" ";
-        inorderpass(node->right);
-    }
-    void serialize(Node *node, std::string &res)
-    {
-        if (node==nullptr)
-        {
-            return;
-        }
-        res+=std::to_string(node->value);
-        res+="(";
-        serialize(node->left,res);
-        res+=")";
-        res+="(";
-        serialize(node->right,res);
-        res+=")";
-    }
+    cout << a1->CanWithdraw(100) << endl;
+    cout << a2->CanWithdraw(100) << endl;
 
-public:
-    BST()
-    {
-        root = nullptr;
-    }
-    ~BST()
-    {
-        destroy(root);
-    }
+    delete a1;
+    delete a2;
 
-    void insert(int key)
-    {
-        root = insert(root, key);
-    }
-
-};
+    return 0;
+}
