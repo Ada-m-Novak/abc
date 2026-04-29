@@ -3,16 +3,17 @@
 
 #include "Account.h"
 
-class CreditAccount : public Account {
+class CreditAccount : public Account
+{
 private:
-  double credit;
+    double credit;
 
 public:
-  CreditAccount(int c, Client *o, double cr);
-  CreditAccount(int c, Client *o, double ir, double cr);
+    CreditAccount(int c, Client *o, double cr);
+    CreditAccount(int c, Client *o, double ir, double cr);
 
-  double GetCredit() const;
-  bool CanWithdraw(double a) const override;
+    double GetCredit() const;
+    bool CanWithdraw(double a) const override;
 };
 
 #endif
